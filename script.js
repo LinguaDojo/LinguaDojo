@@ -213,6 +213,106 @@ const courseData = {
                 ["Bufanda", "Scarf", "Long ____", ["Scarf", "Hat", "Coat", "Glove"], "🧣", "Para el cuello.", "A wool scarf"],
                 ["Guantes", "Gloves", "Pair of ____", ["Gloves", "Socks", "Shoes", "Hats"], "🧤", "Para las manos.", "Cold hands, warm gloves"]
             ].map((d, i) => ({ id: 800 + i + 1, num: i + 1, isPro: i >= 10, title: d[0], ans: d[1], code: d[2], opts: d[3], ic: d[4], theory: { text: d[5], example: d[6], voice: d[6] }, questions: [{ type: "translate", text: `¿Cómo se dice '${d[0]}'?`, answer: d[1], options: d[3], voice: d[1] }] }))
+        },
+        {
+            id: 9, title: "Entretenimiento", icon: "🎮",
+            levels: [
+                ["Juego", "Game", "New ____", ["Game", "Play", "Sport", "Work"], "🎮", "Para divertirse.", "A fun game"],
+                ["Cine", "Cinema", "Go to ____", ["Cinema", "Store", "Bank", "Park"], "🎬", "Ver películas.", "At the cinema"],
+                ["Cuento", "Story", "Tell a ____", ["Story", "Song", "Game", "Play"], "📚", "Narración.", "A bedtime story"],
+                ["Música", "Music", "Listen to ____", ["Music", "Sound", "Noise", "Voice"], "🎵", "Sonidos rítmicos.", "Soft music"],
+                ["Baile", "Dance", "Let's ____", ["Dance", "Sing", "Play", "Run"], "💃", "Mover el cuerpo.", "Learn to dance"],
+                ["Fiesta", "Party", "Birthday ____", ["Party", "Work", "School", "Home"], "🥳", "Celebración.", "A big party"],
+                ["Película", "Movie", "Scary ____", ["Movie", "Book", "Song", "Game"], "🎥", "Historia visual.", "Watch a movie"],
+                ["Radio", "Radio", "On the ____", ["Radio", "Phone", "TV", "Web"], "📻", "Para oír noticias.", "Listen to the radio"],
+                ["Tele", "TV", "Watch ____", ["TV", "Radio", "Book", "Game"], "📺", "Televisión.", "Turn on the TV"],
+                ["Libro", "Book", "Read a ____", ["Book", "Pen", "Page", "Desk"], "📖", "Hojas escritas.", "A long book"],
+                ["Actor", "Actor", "Famous ____", ["Actor", "Singer", "Artist", "Doctor"], "🎭", "Actúa en cine.", "A Hollywood actor"],
+                ["Pintura", "Painting", "Oil ____", ["Painting", "Photo", "Drawing", "Art"], "🎨", "Arte con pincel.", "A beautiful painting"],
+                ["Dibujo", "Drawing", "Pen ____", ["Drawing", "Painting", "Photo", "Art"], "✏️", "Arte con lápiz.", "Make a drawing"],
+                ["Museo", "Museum", "History ____", ["Museum", "Cinema", "Store", "Park"], "🏛️", "Donde hay arte.", "Visit the museum"],
+                ["Teatro", "Theater", "Old ____", ["Theater", "Cinema", "Store", "Park"], "🏟️", "Obras en vivo.", "At the theater"],
+                ["Concierto", "Concert", "Rock ____", ["Concert", "Movie", "Game", "Party"], "🎸", "Música en vivo.", "Go to a concert"],
+                ["Piano", "Piano", "Play ____", ["Piano", "Guitar", "Drum", "Violin"], "🎹", "Instrumento de teclas.", "The grand piano"],
+                ["Guitarra", "Guitar", "Electric ____", ["Guitar", "Piano", "Drum", "Violin"], "🎸", "Instrumento de cuerdas.", "A loud guitar"],
+                ["Tambor", "Drum", "Play the ____", ["Drum", "Piano", "Guitar", "Violin"], "🥁", "Instrumento de percusión.", "A big drum"],
+                ["Violín", "Violin", "Classic ____", ["Violin", "Piano", "Guitar", "Drum"], "🎻", "Instrumento delicado.", "The small violin"]
+            ].map((d, i) => ({ id: 900 + i + 1, num: i + 1, isPro: i >= 10, title: d[0], ans: d[1], code: d[2], opts: d[3], ic: d[4], theory: { text: d[5], example: d[6], voice: d[6] }, questions: [{ type: "translate", text: `¿Cómo se dice '${d[0]}'?`, answer: d[1], options: d[3], voice: d[1] }] }))
+        },
+        {
+            id: 10, title: "Deporte y Ocio", icon: "⚽",
+            levels: [
+                ["Fútbol", "Soccer", "Play ____", ["Soccer", "Tennis", "Golf", "Run"], "⚽", "Con los pies.", "American soccer"],
+                ["Tenis", "Tennis", "Play ____", ["Tennis", "Soccer", "Golf", "Run"], "🎾", "Con raqueta.", "Play tennis"],
+                ["Correr", "Run", "I like to ____", ["Run", "Swim", "Walk", "Jump"], "🏃", "Ir rápido a pie.", "Run fast"],
+                ["Nadar", "Swim", "In the pool", ["Swim", "Run", "Walk", "Jump"], "🏊", "En el agua.", "Swim like a fish"],
+                ["Golf", "Golf", "Play ____", ["Golf", "Tennis", "Soccer", "Run"], "⛳", "Con hoyos.", "A game of golf"],
+                ["Bici", "Bicycle", "Ride a ____", ["Bicycle", "Car", "Bus", "Train"], "🚲", "Dos ruedas.", "My red bicycle"],
+                ["Pelota", "Ball", "Kick the ____", ["Ball", "Bat", "Net", "Goal"], "⚽", "Redonda.", "A plastic ball"],
+                ["Equipo", "Team", "Best ____", ["Team", "Player", "Game", "Win"], "👫", "Grupo unido.", "A strong team"],
+                ["Ganar", "Win", "Want to ____", ["Win", "Lose", "Draw", "Play"], "🏆", "Ser el primero.", "Win the game"],
+                ["Jugar", "Play", "Let's ____", ["Play", "Work", "Sleep", "Eat"], "🎮", "Hacer deporte.", "Play with friends"],
+                ["Perder", "Lose", "Do not ____", ["Lose", "Win", "Draw", "Play"], "😢", "No ser primero.", "Do not lose"],
+                ["Empate", "Draw", "It is a ____", ["Draw", "Win", "Lose", "Play"], "🤝", "Iguales.", "A fair draw"],
+                ["Entrenar", "Train", "Need to ____", ["Train", "Play", "Work", "Rest"], "💪", "Practicar.", "Train hard"],
+                ["Gimnasio", "Gym", "Go to the ____", ["Gym", "Store", "Bank", "Park"], "🏋️", "Hacer ejercicio.", "At the local gym"],
+                ["Piscina", "Pool", "Blue ____", ["Pool", "Lake", "Sea", "River"], "🏊", "Donde nadas.", "A clean pool"],
+                ["Estadio", "Stadium", "Big ____", ["Stadium", "Gym", "Park", "Cinema"], "🏟️", "Donde hay partidos.", "The city stadium"],
+                ["Caminar", "Walk", "Take a ____", ["Walk", "Run", "Swim", "Jump"], "🚶", "Ir a pie.", "Walk in the park"],
+                ["Saltar", "Jump", "I can ____", ["Jump", "Run", "Swim", "Walk"], "🦘", "Hacia arriba.", "Jump high"],
+                ["Cantar", "Sing", "Try to ____", ["Sing", "Dance", "Speak", "Listen"], "🎤", "Voz musical.", "Sing a song"],
+                ["Reír", "Laugh", "Always ____", ["Laugh", "Cry", "Smile", "Angry"], "😂", "Felicidad.", "Laugh out loud"]
+            ].map((d, i) => ({ id: 1000 + i + 1, num: i + 1, isPro: i >= 10, title: d[0], ans: d[1], code: d[2], opts: d[3], ic: d[4], theory: { text: d[5], example: d[6], voice: d[6] }, questions: [{ type: "translate", text: `¿Cómo se dice '${d[0]}'?`, answer: d[1], options: d[3], voice: d[1] }] }))
+        },
+        {
+            id: 11, title: "Tecnología", icon: "💻",
+            levels: [
+                ["Compu", "Computer", "Fast ____", ["Computer", "Phone", "Radio", "TV"], "💻", "Para trabajar.", "My new computer"],
+                ["Celular", "Phone", "Mobile ____", ["Phone", "Radio", "TV", "Web"], "📱", "En tu mano.", "Call me on the phone"],
+                ["Internet", "Internet", "On the ____", ["Internet", "Radio", "TV", "Phone"], "🌐", "Mundo conectado.", "Search the internet"],
+                ["Correo", "Email", "Send an ____", ["Email", "Letter", "Call", "Game"], "📧", "Mensaje digital.", "Check my email"],
+                ["Web", "Website", "Visit a ____", ["Website", "Email", "Phone", "TV"], "🌍", "Sitio digital.", "A fast website"],
+                ["Clave", "Password", "Safe ____", ["Password", "Name", "Mail", "Word"], "🔐", "Secreto.", "What is the password?"],
+                ["Pantalla", "Screen", "Big ____", ["Screen", "Phone", "Mouse", "Key"], "📺", "Donde ves todo.", "A flat screen"],
+                ["Teclado", "Keyboard", "Type on ____", ["Keyboard", "Mouse", "Screen", "Phone"], "⌨️", "Para escribir.", "A mechanical keyboard"],
+                ["Ratón", "Mouse", "Computer ____", ["Mouse", "Screen", "Key", "Phone"], "🖱️", "Mueve flecha.", "A wireless mouse"],
+                ["Código", "Code", "Write ____", ["Code", "Word", "Mail", "Call"], "⌨️", "Para programar.", "Learn to code"],
+                ["Robot", "Robot", "Smart ____", ["Robot", "Man", "Dog", "Cat"], "🤖", "Hombre de metal.", "The small robot"],
+                ["Espacio", "Space", "Outer ____", ["Space", "Sky", "Cloud", "Sun"], "🚀", "Estrellas y luna.", "Travel to space"],
+                ["Nave", "Spaceship", "Fast ____", ["Spaceship", "Car", "Bus", "Train"], "🛸", "Vuela lejos.", "The silver spaceship"],
+                ["Futuro", "Future", "Smart ____", ["Future", "Past", "Now", "Today"], "⏳", "Lo que vendrá.", "In the future"],
+                ["Chip", "Chip", "Small ____", ["Chip", "Card", "Key", "Box"], "💾", "Cerebro digital.", "A silicon chip"],
+                ["Cable", "Cable", "Long ____", ["Cable", "Wire", "Link", "Line"], "🔌", "Para corriente.", "Plug in the cable"],
+                ["Batería", "Battery", "Full ____", ["Battery", "Power", "Low", "Life"], "🔋", "Energía.", "Charge the battery"],
+                ["Wifi", "Wifi", "Free ____", ["Wifi", "Link", "Web", "Net"], "📶", "Señal sin hilos.", "Where is the wifi?"],
+                ["App", "App", "Mobile ____", ["App", "Game", "Web", "Mail"], "📱", "Programa de móvil.", "Install the app"],
+                ["Juego", "Game", "Video ____", ["Game", "App", "Web", "Mail"], "🎮", "Diversión digital.", "I love this game"]
+            ].map((d, i) => ({ id: 1100 + i + 1, num: i + 1, isPro: i >= 10, title: d[0], ans: d[1], code: d[2], opts: d[3], ic: d[4], theory: { text: d[5], example: d[6], voice: d[6] }, questions: [{ type: "translate", text: `¿Cómo se dice '${d[0]}'?`, answer: d[1], options: d[3], voice: d[1] }] }))
+        },
+        {
+            id: 12, title: "Sentimientos", icon: "🔥",
+            levels: [
+                ["Amor", "Love", "I ____ you", ["Love", "Hate", "Like", "Want"], "❤️", "Sentir mucho.", "True love"],
+                ["Odio", "Hate", "Stop the ____", ["Hate", "Love", "Like", "Want"], "😠", "Sentir mal.", "Do not hate"],
+                ["Feliz", "Happy", "Feel ____", ["Happy", "Sad", "Angry", "Fear"], "😊", "Estar bien.", "I am happy"],
+                ["Triste", "Sad", "Don't be ____", ["Sad", "Happy", "Angry", "Fear"], "😢", "Estar mal.", "A sad day"],
+                ["Enojo", "Angry", "Stop being ____", ["Angry", "Happy", "Sad", "Fear"], "😡", "Mucha rabia.", "The angry man"],
+                ["Miedo", "Fear", "No ____", ["Fear", "Love", "Hope", "Joy"], "😨", "Susto.", "Face your fear"],
+                ["Paz", "Peace", "World ____", ["Peace", "War", "Love", "Hope"], "🕊️", "Tranquilidad.", "Inner peace"],
+                ["Guerra", "War", "Stop the ____", ["War", "Peace", "Love", "Hope"], "💣", "Conflicto.", "A long war"],
+                ["Risa", "Laugh", "A big ____", ["Laugh", "Cry", "Smile", "Angry"], "😄", "Jajaja.", "A loud laugh"],
+                ["Llantos", "Cry", "Don't ____", ["Cry", "Laugh", "Smile", "Angry"], "😭", "Lágrimas.", "Baby cry"],
+                ["Deseo", "Want", "I ____ this", ["Want", "Like", "Need", "Have"], "💫", "Querer algo.", "I want more"],
+                ["Gusto", "Like", "I ____ food", ["Like", "Love", "Want", "Need"], "👍", "Agradar.", "I like pizza"],
+                ["Necesidad", "Need", "I ____ water", ["Need", "Want", "Like", "Have"], "🆘", "Ser urgente.", "You need help"],
+                ["Tener", "Have", "I ____ a car", ["Have", "Need", "Want", "Like"], "🤲", "Posesión.", "I have a house"],
+                ["Ser", "Be", "Just ____", ["Be", "Have", "Need", "Want"], "🧘", "Existir.", "To be or not to be"],
+                ["Amigo", "Friend", "Best ____", ["Friend", "Enemy", "Boy", "Girl"], "👫", "Persona cercana.", "A good friend"],
+                ["Enemigo", "Enemy", "Kill the ____", ["Enemy", "Friend", "Man", "Woman"], "🦹", "Persona contraria.", "Stay away from enemy"],
+                ["Familia", "Family", "Big ____", ["Family", "Friend", "Team", "Group"], "👨‍👩‍👧‍👦", "Parientes.", "I love my family"],
+                ["Hogar", "Home", "Going ____", ["Home", "House", "Store", "Work"], "🏠", "Donde vives.", "Home sweet home"],
+                ["Mundo", "World", "The entire ____", ["World", "Home", "City", "Land"], "🌍", "Todo el planeta.", "Save the world"]
+            ].map((d, i) => ({ id: 1200 + i + 1, num: i + 1, isPro: i >= 10, title: d[0], ans: d[1], code: d[2], opts: d[3], ic: d[4], theory: { text: d[5], example: d[6], voice: d[6] }, questions: [{ type: "translate", text: `¿Cómo se dice '${d[0]}'?`, answer: d[1], options: d[3], voice: d[1] }] }))
         }
     ]
 };
@@ -515,7 +615,7 @@ document.querySelector('.pro-badge').onclick = () => {
 };
 document.getElementById('manual-code-btn').onclick = () => {
     const code = prompt("Ingresa tu código de activación:");
-    if (code === "LINGUA2025") {
+    if (code === "LINGUA2025" || code === "cliente_vip_enero_2026") {
         state.isPro = true;
         localStorage.setItem('lingua_pro', 'true');
         alert("¡Felicidades! Lingua Dojo PRO Activado.");
@@ -540,5 +640,55 @@ window.onclick = (event) => {
 };
 
 // Start
+// Lógica de Modo Oscuro
+const darkModeBtn = document.getElementById('dark-mode-btn');
+const isDarkMode = localStorage.getItem('lingua_theme') === 'dark';
+if (isDarkMode) {
+    document.body.classList.add('dark-mode');
+    darkModeBtn.innerText = '☀️';
+}
+
+darkModeBtn.onclick = () => {
+    const isDark = document.body.classList.toggle('dark-mode');
+    localStorage.setItem('lingua_theme', isDark ? 'dark' : 'light');
+    darkModeBtn.innerText = isDark ? '☀️' : '🌙';
+};
+
+// Lógica para detectar acceso VIP por URL
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('access') === 'cliente_vip_enero_2026') {
+    state.isPro = true;
+    localStorage.setItem('lingua_pro', 'true');
+    console.log("Acceso PRO activado vía URL");
+}
+
 updateLessonUI();
 renderMap();
+
+// Drag to scroll para el navegador de unidades (Mouse)
+const slider = document.querySelector('.units-nav');
+let isDown = false;
+let startX;
+let scrollLeft;
+
+slider.addEventListener('mousedown', (e) => {
+    isDown = true;
+    slider.classList.add('active');
+    startX = e.pageX - slider.offsetLeft;
+    scrollLeft = slider.scrollLeft;
+});
+slider.addEventListener('mouseleave', () => {
+    isDown = false;
+    slider.classList.remove('active');
+});
+slider.addEventListener('mouseup', () => {
+    isDown = false;
+    slider.classList.remove('active');
+});
+slider.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - slider.offsetLeft;
+    const walk = (x - startX) * 2; // Velocidad del scroll
+    slider.scrollLeft = scrollLeft - walk;
+});
