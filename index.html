@@ -121,6 +121,8 @@
                         <span>Pronunciación:</span>
                         <div class="voice-box">
                             <button class="audio-btn" id="play-theory-audio">🔊 Escuchar</button>
+                            <button class="mic-btn hidden" id="mic-theory-btn"
+                                style="width: 40px; height: 40px; font-size: 1rem; border-radius: 10px; display: inline-flex;">🎤</button>
                             <pre id="theory-code">Text to read</pre>
                         </div>
                     </div>
@@ -146,7 +148,8 @@
 
             <main class="lesson-area">
                 <div class="question-header">
-                    <button class="audio-btn-large" id="play-question-audio">🔊</button>
+                    <button class="audio-btn-large" id="play-question-audio" title="Escuchar">🔊</button>
+                    <button class="mic-btn hidden" id="mic-btn" title="Reconocimiento de Voz">🎤</button>
                     <h2 class="question-text" id="question-text">...</h2>
                 </div>
 
