@@ -642,6 +642,14 @@ document.getElementById('back-to-map-btn').onclick = () => showView('map');
 document.querySelector('.pro-badge').onclick = () => {
     document.getElementById('payment-modal').classList.remove('hidden');
 };
+
+document.getElementById('save-btn').onclick = () => {
+    localStorage.setItem('lingua_completed', JSON.stringify(state.completedLevels));
+    localStorage.setItem('lingua_gems', state.gems);
+    localStorage.setItem('lingua_streak', state.streak);
+    localStorage.setItem('lingua_pro', state.isPro);
+    alert("¡Progreso guardado correctamente! 💾");
+};
 document.getElementById('verify-code-btn').onclick = () => {
     const inputField = document.getElementById('manual-code-input');
     const code = inputField.value.trim();
