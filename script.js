@@ -321,14 +321,69 @@ const courseData = {
 // === VOCES (WEB SPEECH API) ===
 function speak(text, lang = 'en-US') {
     if (!window.speechSynthesis) return;
-    // Cancelar cualquier voz previa
     window.speechSynthesis.cancel();
-
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = lang;
-    utterance.rate = 0.9; // Un poco más lento para aprender
+    utterance.rate = 0.9;
     utterance.pitch = 1.0;
     window.speechSynthesis.speak(utterance);
+}
+
+// === RECONOCIMIENTO DE VOZ (PRO) ===
+let recognition = null;
+if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onresult = (event) => {
+        const text = event.results[0][0].transcript.toLowerCase();
+        console.log("Voz reconocida:", text);
+        handleVoiceAnswer(text);
+    };
+
+    recognition.onend = () => {
+        document.getElementById('mic-btn').classList.remove('recording');
+        document.getElementById('mic-theory-btn').classList.remove('recording');
+    };
+
+    recognition.onerror = (event) => {
+        console.error("Error de reconocimiento:", event.error);
+        document.getElementById('mic-btn').classList.remove('recording');
+    };
+}
+
+function handleVoiceAnswer(text, targetText = null) {
+    const currentAns = (targetText || state.currentLevel.questions[quizIndex].answer)
+        .toLowerCase()
+        .trim()
+        .replace(/[!.?,]/g, '');
+
+    const cleanText = text.toLowerCase().trim().replace(/[!.?,]/g, '');
+
+    console.log(`Comparando: "${cleanText}" vs "${currentAns}"`);
+
+    if (cleanText === currentAns) {
+        if (!targetText) {
+            // Modo Lección: Buscar botón con la respuesta
+            let found = false;
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                if (btn.innerText.toLowerCase().trim().replace(/[!.?,]/g, '') === currentAns) {
+                    btn.click();
+                    found = true;
+                }
+            });
+            // Si no lo encuentra en botones, intentamos check directo (bubbles o similar)
+            document.getElementById('check-btn').click();
+        } else {
+            alert("¡Perfecto! Lo has pronunciado muy bien. ✨");
+        }
+    } else {
+        // Feedback visual o alerta
+        alert(`Escuché: "${text}"\nSe esperaba: "${currentAns}"\n¡Inténtalo de nuevo!`);
+    }
 }
 
 // === NAVEGACIÓN ===
@@ -437,6 +492,27 @@ function startLevel(level) {
 
     document.getElementById('play-theory-audio').onclick = () => speak(theory.voice);
 
+    const micTheoryBtn = document.getElementById('mic-theory-btn');
+    if (state.isPro) {
+        micTheoryBtn.classList.remove('hidden');
+        micTheoryBtn.onclick = () => {
+            if (!recognition) return alert("Navegador no compatible.");
+            try {
+                micTheoryBtn.classList.add('recording');
+                recognition.onresult = (event) => {
+                    const text = event.results[0][0].transcript;
+                    handleVoiceAnswer(text, theory.voice);
+                };
+                recognition.start();
+            } catch (e) {
+                recognition.stop();
+                micTheoryBtn.classList.remove('recording');
+            }
+        };
+    } else {
+        micTheoryBtn.classList.add('hidden');
+    }
+
     showView('theory');
 }
 
@@ -468,8 +544,32 @@ function loadQuestion() {
     container.innerHTML = '';
     challengeBox.innerHTML = '';
 
-    // Configurar Botón de Audio
+    // Configurar Botón de Audio y Mic
     document.getElementById('play-question-audio').onclick = () => speak(q.voice);
+
+    const micBtn = document.getElementById('mic-btn');
+    if (state.isPro) {
+        micBtn.classList.remove('hidden');
+        micBtn.onclick = () => {
+            if (!recognition) {
+                alert("Tu navegador no soporta reconocimiento de voz.");
+                return;
+            }
+            try {
+                micBtn.classList.add('recording');
+                recognition.onresult = (event) => {
+                    const text = event.results[0][0].transcript;
+                    handleVoiceAnswer(text);
+                };
+                recognition.start();
+            } catch (e) {
+                recognition.stop();
+                micBtn.classList.remove('recording');
+            }
+        };
+    } else {
+        micBtn.classList.add('hidden');
+    }
 
     if (q.type === 'translate') {
         q.options.forEach(opt => {
@@ -653,7 +753,7 @@ document.getElementById('save-btn').onclick = () => {
 document.getElementById('verify-code-btn').onclick = () => {
     const inputField = document.getElementById('manual-code-input');
     const code = inputField.value.trim();
-    if (code === "LINGUA2025" || code === "cliente_vip_enero_2026") {
+    if (code === "cliente_vip_enero_2026") {
         state.isPro = true;
         localStorage.setItem('lingua_pro', 'true');
         alert("¡Felicidades! Lingua Dojo PRO Activado.");
