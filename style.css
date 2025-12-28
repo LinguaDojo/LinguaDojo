@@ -353,12 +353,17 @@ body {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    /* Permite que el nav baje a la siguiente línea */
     border-bottom: 2px solid var(--border);
     background: #fff;
     position: sticky;
     top: 0;
     z-index: 100;
+}
+
+.header-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
 }
 
 .user-stats {
@@ -806,6 +811,35 @@ body {
     transition: all 0.2s;
 }
 
+.pay-instructions {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 1.2rem;
+    border-radius: 20px;
+    margin: 1.5rem 0;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode .pay-instructions {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.pay-instructions h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    color: var(--primary-main);
+}
+
+.pay-instructions ul {
+    list-style: none;
+    padding: 0;
+}
+
+.pay-instructions li {
+    margin-bottom: 0.6rem;
+    font-size: 0.95rem;
+}
+
 .pp-btn {
     display: block;
     background: #003087;
@@ -983,12 +1017,12 @@ body {
     position: relative;
     background: linear-gradient(135deg, #ffce00 0%, #ff8c00 100%);
     border: none;
-    padding: 0.6rem 1.4rem;
+    padding: 0.4rem 0.8rem;
     border-radius: 50px;
     color: #4a2c00;
     font-weight: 950;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
+    font-size: 0.75rem;
+    letter-spacing: 0.2px;
     cursor: pointer;
     box-shadow: 0 4px 0 #cc6d00, 0 8px 15px rgba(255, 140, 0, 0.3);
     transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
