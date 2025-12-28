@@ -57,7 +57,9 @@
                 <div class="user-stats">
                     <span class="currency">💎 <span id="gems-count">0</span></span>
                     <span class="streak">🔥 <span id="streak-count">0</span></span>
+                    <span id="pro-status-tag" class="pro-tag-mini hidden">PRO</span>
                 </div>
+
                 <div class="header-actions">
                     <button id="dark-mode-btn" class="util-btn" title="Alternar Vista">🌙</button>
                     <button id="save-btn" class="util-btn" title="Guardar Progreso">💾</button>
@@ -190,17 +192,18 @@
                     <a href="https://paypal.me/Estebanfederico" target="_blank" class="pp-btn">Pagar $3 USD</a>
                 </div>
             </div>
-            <div class="manual-code-section" style="margin-top: 20px;">
-                <p>¿Ya tienes un código?</p>
-                <button id="manual-code-btn" class="util-btn"
-                    style="width: 100%; border-color: var(--primary-main); color: var(--primary-main);">🔑 Ingresar
-                    Código Manual</button>
+            <div class="manual-code-section">
+                <p>¿Ya tienes un código de acceso?</p>
+                <div class="manual-input-group">
+                    <input type="text" id="manual-code-input" placeholder="Ingresar código aquí...">
+                    <button id="verify-code-btn" class="verify-btn">ACTIVAR</button>
+                </div>
             </div>
-            <div class="support-links" style="margin-top: 20px;">
-                <a href="https://wa.me/5492664024390" target="_blank"
-                    style="text-decoration: none; color: var(--text-light); font-weight: 700;">📱 Soporte por
-                    WhatsApp</a>
+
+            <div class="support-links">
+                <a href="https://wa.me/5492664024390" target="_blank">📱 Soporte por WhatsApp</a>
             </div>
+
         </div>
     </div>
 
