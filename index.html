@@ -11,6 +11,16 @@
         href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Outfit:wght@500;700;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(reg => console.log('Service Worker registrado', reg))
+                    .catch(err => console.log('Error al registrar SW', err));
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -21,7 +31,7 @@
         <div id="view-intro" class="view">
             <div class="hero">
                 <div class="logo-container">
-                    <span class="logo-icon">🌍</span>
+                    <img src="lingua_dojo_icon.png" alt="Lingua Dojo Logo" class="logo-main">
                     <h1>Lingua Dojo</h1>
                 </div>
                 <p class="tagline">Aprende idiomas de forma natural, rápida y divertida. ¡Habla desde el primer día!</p>
@@ -30,6 +40,17 @@
                     <div class="f-item"><span>🎙️</span> Detección de Voz</div>
                     <div class="f-item"><span>🎮</span> Gamificado</div>
                     <div class="f-item"><span>⚡</span> 100% Interactivo</div>
+                </div>
+
+                <!-- NEW: App Download Promo Card -->
+                <div class="app-promo-card">
+                    <img src="lingua_dojo_icon.png" alt="Lingua Dojo App" class="app-promo-icon">
+                    <div class="app-promo-text">
+                        <span>¡Llévalo contigo!</span>
+                        <a href="https://www.mediafire.com/file/xrxkrvfb7jf10vp/Lingua_Dojo.apk/file"
+                            id="apk-download-link-hero" target="_blank" class="apk-link">Descargar App (APK)
+                            <small>v5.0</small></a>
+                    </div>
                 </div>
 
                 <div class="language-select-wrapper" style="margin-bottom: 1rem; width: 100%; max-width: 320px;">
@@ -48,6 +69,8 @@
                 <button id="start-learning-btn" class="action-btn main-cta">EMPEZAR AHORA</button>
                 <p class="sub-link" style="margin-top: 1.5rem; display: block;">Basado en el método de inmersión total
                 </p>
+
+
 
                 <!-- Visitor Counter (Visible only on Intro) -->
                 <div class="visitor-counter-mini">

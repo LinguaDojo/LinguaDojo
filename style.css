@@ -1191,3 +1191,188 @@ body {
 .dark-mode .pro-badge {
     box-shadow: 0 4px 0 #9b5a00, 0 8px 15px rgba(0, 0, 0, 0.5);
 }
+/* App Download Promo Card */
+.app-promo-card {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 12px 20px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    margin: 1.5rem auto;
+    max-width: 280px;
+    gap: 15px;
+    transform: scale(1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid rgba(255,255,255,0.5);
+    animation: fadeIn 0.8s ease-out 0.5s both; /* Slight delay to pop in */
+}
+
+.app-promo-card:hover {
+    transform: scale(1.03) translateY(-2px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.app-promo-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    object-fit: cover;
+}
+
+.app-promo-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.app-promo-text span {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #64748b;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.apk-link {
+    text-decoration: none;
+    color: #2563eb; /* Strong Blue */
+    font-weight: 800;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.apk-link small {
+    font-weight: 600;
+    font-size: 0.7rem;
+    background: #dbeafe;
+    padding: 2px 5px;
+    border-radius: 4px;
+    color: #1e40af;
+}
+
+/* Dark Mode Adjustment for Card */
+body.dark-mode .app-promo-card {
+    background: rgba(30, 41, 59, 0.9);
+    border-color: rgba(255,255,255,0.1);
+}
+body.dark-mode .app-promo-text span {
+    color: #94a3b8;
+}
+body.dark-mode .apk-link {
+    color: #60a5fa;
+}
+body.dark-mode .apk-link small {
+    background: #1e3a8a;
+    color: #bfdbfe;
+}
+
+
+/* --- AJUSTES DE ESPACIO Y ESCALA --- */
+
+/* 1. Reducir escala general del Hero en celulares para que quepa todo */
+#view-intro.view {
+    padding: 1rem !important; /* Reducir padding extremo */
+    justify-content: center; /* Mantener centrado */
+}
+
+/* 2. Compactar el Logo Hero */
+.logo-icon {
+    font-size: 3.5rem !important; /* Antes 5rem, ahora más chico */
+    margin-bottom: 0.5rem !important;
+}
+
+#view-intro h1 {
+    font-size: 2.2rem !important; /* Antes 3.2rem */
+    margin-bottom: 0px !important;
+}
+
+.tagline {
+    font-size: 0.95rem !important;
+    margin-bottom: 1.5rem !important;
+    max-width: 90%;
+}
+
+/* 3. Compactar Features */
+.features-preview {
+    margin-bottom: 1.5rem !important;
+    gap: 0.5rem !important;
+}
+
+.f-item {
+    font-size: 0.75rem !important;
+    padding: 0.6rem !important;
+}
+
+/* 4. Tarjeta Promocional COMPACTA (Fix usuario) */
+.app-promo-card {
+    padding: 8px 16px !important; /* Menor padding */
+    margin: 1rem auto !important;
+    max-width: 260px !important;
+    gap: 10px !important;
+    transform: scale(0.95); /* Ligeramente más pequeña por defecto */
+}
+
+.app-promo-icon {
+    width: 38px !important; /* Antes 48px */
+    height: 38px !important;
+}
+
+.app-promo-text span {
+    font-size: 0.7rem !important;
+}
+
+.apk-link {
+    font-size: 0.85rem !important;
+}
+
+/* 5. Asegurar que el contador no se pierda */
+.visitor-counter-mini {
+    margin-top: 1rem !important;
+    transform: scale(0.65) !important; /* Un poco más pequeño y discreto */
+}
+
+/* 6. Ajustar botones de acción para que no ocupen tanto verticalmente */
+.main-cta {
+    padding: 1rem !important;
+    font-size: 1.1rem !important;
+}
+
+.sub-link {
+    margin-top: 1rem !important;
+    font-size: 0.8rem !important;
+}
+
+
+/* Logo Principal (Imagen) */
+.logo-main {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* Ya es circular, pero por si acaso */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    margin-bottom: 1rem;
+    animation: float 6s ease-in-out infinite;
+    object-fit: cover;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Ajuste Mobile para el nuevo logo imagen */
+@media (max-width: 600px) {
+    .logo-main {
+        width: 90px !important;
+        height: 90px !important;
+        margin-bottom: 0.5rem !important;
+    }
+}
+
