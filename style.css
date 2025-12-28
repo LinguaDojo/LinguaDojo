@@ -348,11 +348,9 @@ body {
 
 /* === MAP VIEW === */
 .top-bar-home {
-    padding: 0.8rem 1rem;
+    padding: 0;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
+    flex-direction: column;
     border-bottom: 2px solid var(--border);
     background: #fff;
     position: sticky;
@@ -360,17 +358,28 @@ body {
     z-index: 100;
 }
 
+.top-bar-main {
+    padding: 0.6rem 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 0.5rem;
+}
+
 .header-actions {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.4rem;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .user-stats {
     display: flex;
-    gap: 1rem;
+    gap: 0.8rem;
     font-weight: 800;
-    font-size: 1.1rem;
+    font-size: 1rem;
+    flex-shrink: 0;
 }
 
 .currency {
@@ -559,11 +568,15 @@ body {
 .util-btn {
     background: #fff;
     border: 2px solid var(--border);
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.7rem;
     border-radius: 12px;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.2s;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .util-btn:hover {
@@ -989,6 +1002,40 @@ body {
 
 /* === Responsive Mobile Adjustments === */
 @media (max-width: 480px) {
+    .top-bar-main {
+        padding: 0.4rem 0.5rem;
+        gap: 0.2rem;
+    }
+
+    .user-stats {
+        gap: 0.4rem;
+        font-size: 0.85rem;
+    }
+
+    .header-actions {
+        gap: 0.2rem;
+    }
+
+    .util-btn {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .pro-badge {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.65rem;
+        gap: 4px;
+    }
+
+    .pro-badge::before {
+        font-size: 0.8rem;
+    }
+
+    .pro-tag-mini {
+        font-size: 0.65rem;
+        padding: 1px 4px;
+    }
+
     .question-text {
         font-size: 1.2rem;
     }
