@@ -9,6 +9,7 @@ const state = {
     currentLevel: null,
     progress: 0,
     completedLevels: JSON.parse(localStorage.getItem('lingua_completed')) || [],
+    lastLevelPassed: false,
 };
 
 // === BASE DE DATOS DE LECCIONES (INGLÉS A1) ===
@@ -571,11 +572,25 @@ document.getElementById('check-btn').onclick = () => {
         title.innerText = "¡Excelente!";
         detail.innerText = "Sigue así.";
         speak(q.voice); // Refuerzo auditivo al acertar
+
+        // Si es la última pregunta, marcar como completado y dar puntos
+        const isLastQuestion = (quizIndex === state.currentLevel.questions.length - 1);
+        if (isLastQuestion && !state.completedLevels.includes(state.currentLevel.id)) {
+            state.completedLevels.push(state.currentLevel.id);
+            state.gems += 10;
+            state.streak++;
+            state.lastLevelPassed = true;
+        } else if (isLastQuestion) {
+            state.lastLevelPassed = true;
+        }
     } else {
         footer.className = 'bottom-bar wrong';
         title.innerText = "Casi...";
         detail.innerText = `La respuesta era: ${Array.isArray(q.answer) ? q.answer.join(' ') : q.answer}`;
         state.lives--;
+        state.streak = 0; // Resetear racha al fallar (como en Godot Dojo)
+        state.lastLevelPassed = false;
+
         if (state.lives <= 0) {
             alert("Te quedaste sin vidas. Intenta de nuevo.");
             showView('map');
@@ -594,16 +609,17 @@ document.getElementById('next-btn').onclick = () => {
 };
 
 function finishLevel() {
-    if (!state.completedLevels.includes(state.currentLevel.id)) {
-        state.completedLevels.push(state.currentLevel.id);
-        state.gems += 10;
-        state.streak++;
-    }
+    // Los puntos ya se sumaron en check-btn si fue correcto
     localStorage.setItem('lingua_completed', JSON.stringify(state.completedLevels));
     localStorage.setItem('lingua_gems', state.gems);
     localStorage.setItem('lingua_streak', state.streak);
 
-    alert("¡Nivel Completado! +10 Gemas 💎");
+    if (state.lastLevelPassed) {
+        alert("¡Nivel Completado! +10 Gemas 💎");
+    } else {
+        alert("Lección finalizada. ¡Inténtalo de nuevo sin errores para ganar gemas!");
+    }
+
     renderMap();
     showView('map');
 }
