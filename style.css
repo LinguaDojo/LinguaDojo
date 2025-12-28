@@ -104,11 +104,15 @@
     color: white;
 }
 
-.dark-mode .stats-home span,
-.dark-mode #lives-count,
+.dark-mode #lives-count {
+    color: white;
+}
+
 .dark-mode .currency,
 .dark-mode .streak {
-    color: white;
+    background: #1c1f2b;
+    border-color: var(--border-dark);
+    box-shadow: 0 2px 0 #000;
 }
 
 /* Feedback en Dark Mode */
@@ -377,9 +381,24 @@ body {
 .user-stats {
     display: flex;
     gap: 0.8rem;
-    font-weight: 800;
-    font-size: 1rem;
+    align-items: center;
     flex-shrink: 0;
+}
+
+.currency,
+.streak {
+    background: #ffffff;
+    border: 2px solid var(--border);
+    padding: 0.4rem 0.8rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    height: 42px;
+    box-shadow: 0 2px 0 var(--border);
 }
 
 .currency {
@@ -387,7 +406,7 @@ body {
 }
 
 .streak {
-    color: #f1c40f;
+    color: #f39c12;
 }
 
 /* === UNITS NAVIGATION === */
@@ -625,6 +644,44 @@ body {
     gap: 1rem;
     margin-bottom: 2rem;
     align-self: flex-start;
+}
+
+.mic-btn {
+    background: #ff4b4b;
+    color: white;
+    border: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #d63031;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mic-btn.recording {
+    animation: mic-pulse 1.5s infinite;
+    background: #ff0000;
+}
+
+@keyframes mic-pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 75, 75, 0.7);
+    }
+
+    70% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 20px rgba(255, 75, 75, 0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 75, 75, 0);
+    }
 }
 
 .audio-btn-large {
@@ -1009,7 +1066,14 @@ body {
 
     .user-stats {
         gap: 0.4rem;
+    }
+
+    .currency,
+    .streak {
+        padding: 0.3rem 0.6rem;
         font-size: 0.85rem;
+        height: 38px;
+        gap: 4px;
     }
 
     .header-actions {
