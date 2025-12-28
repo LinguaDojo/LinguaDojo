@@ -525,15 +525,28 @@ function updateLessonUI() {
     document.getElementById('streak-count').innerText = state.streak;
 
     // Actualizar badge Pro si ya es pro
+    const proStatusTag = document.getElementById('pro-status-tag');
+    const proBadge = document.querySelector('.pro-badge');
+
     if (state.isPro) {
-        const proBadge = document.querySelector('.pro-badge');
+        if (proStatusTag) proStatusTag.classList.remove('hidden');
         if (proBadge) {
             proBadge.innerText = 'PRO ACTIVO';
             proBadge.style.background = 'linear-gradient(45deg, #8a3ffc, #1192e8)';
             proBadge.style.color = 'white';
+            proBadge.style.boxShadow = '0 4px 0 #6929c4';
+        }
+    } else {
+        if (proStatusTag) proStatusTag.classList.add('hidden');
+        if (proBadge) {
+            proBadge.innerText = 'LINGUA PRO';
+            proBadge.style.background = ''; // Vuelve al gradiente de CSS
+            proBadge.style.color = '';
+            proBadge.style.boxShadow = '';
         }
     }
 }
+
 
 document.getElementById('check-btn').onclick = () => {
     const q = currentQuiz;
@@ -613,8 +626,9 @@ document.getElementById('back-to-map-btn').onclick = () => showView('map');
 document.querySelector('.pro-badge').onclick = () => {
     document.getElementById('payment-modal').classList.remove('hidden');
 };
-document.getElementById('manual-code-btn').onclick = () => {
-    const code = prompt("Ingresa tu código de activación:");
+document.getElementById('verify-code-btn').onclick = () => {
+    const inputField = document.getElementById('manual-code-input');
+    const code = inputField.value.trim();
     if (code === "LINGUA2025" || code === "cliente_vip_enero_2026") {
         state.isPro = true;
         localStorage.setItem('lingua_pro', 'true');
@@ -622,10 +636,13 @@ document.getElementById('manual-code-btn').onclick = () => {
         updateLessonUI();
         renderMap();
         document.getElementById('payment-modal').classList.add('hidden');
+    } else if (code === "") {
+        alert("Por favor, ingresa un código.");
     } else {
         alert("Código inválido.");
     }
 };
+
 
 document.querySelector('.close-modal-pay').onclick = () => {
     document.getElementById('payment-modal').classList.add('hidden');
