@@ -32,8 +32,22 @@
                     <div class="f-item"><span>⚡</span> 100% Interactivo</div>
                 </div>
 
+                <div class="language-select-wrapper" style="margin-bottom: 1rem; width: 100%; max-width: 320px;">
+                    <select id="language-selector" class="main-cta"
+                        style="padding: 0.8rem; font-size: 1rem; text-align: center; text-align-last: center; background: rgba(255,255,255,0.9); color: #333; margin-bottom: 0.5rem;">
+                        <option value="en">🇬🇧 Inglés</option>
+                        <option value="de">🇩🇪 Alemán</option>
+                        <option value="no">🇳🇴 Noruego</option>
+                        <option value="fi">🇫🇮 Finlandés</option>
+                        <option value="it">🇮🇹 Italiano</option>
+                        <option value="ja">🇯🇵 Japonés</option>
+                        <option value="zh">🇨🇳 Chino (Mandarín)</option>
+                    </select>
+                </div>
+
                 <button id="start-learning-btn" class="action-btn main-cta">EMPEZAR AHORA</button>
-                <p class="sub-link">Basado en el método de inmersión total</p>
+                <p class="sub-link" style="margin-top: 1.5rem; display: block;">Basado en el método de inmersión total
+                </p>
 
                 <!-- Visitor Counter (Visible only on Intro) -->
                 <div class="visitor-counter-mini">
@@ -62,6 +76,7 @@
                     </div>
 
                     <div class="header-actions">
+                        <!-- Selector movido al intro -->
                         <button id="dark-mode-btn" class="util-btn" title="Alternar Vista">🌙</button>
                         <button id="save-btn" class="util-btn" title="Guardar Progreso">💾</button>
                         <button class="pro-badge">LINGUA PRO</button>
@@ -87,8 +102,8 @@
             <main class="map-scroll-area">
                 <div class="map-header-branding">
                     <span class="logo-icon-small">🛸</span>
-                    <h2>Curso de Inglés</h2>
-                    <p>Misión: Nivel A1 (Principiante)</p>
+                    <h2 id="course-title-display">Curso de Inglés</h2>
+                    <p id="course-mission-display">Misión: Nivel A1 (Principiante)</p>
                 </div>
 
                 <div class="path-title">UNIDAD 1: Primeros Pasos</div>
@@ -220,6 +235,13 @@
         </div>
     </div>
 
+    <script src="course_en.js"></script>
+    <script src="course_de.js"></script>
+    <script src="course_no.js"></script>
+    <script src="course_fi.js"></script>
+    <script src="course_it.js"></script>
+    <script src="course_ja.js"></script>
+    <script src="course_zh.js"></script>
     <script src="script.js"></script>
 </body>
 
