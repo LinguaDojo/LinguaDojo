@@ -10,7 +10,8 @@ const state = {
     progress: 0,
     completedLevels: JSON.parse(localStorage.getItem('lingua_completed')) || [],
     lastLevelPassed: false,
-    currentLanguage: localStorage.getItem('lingua_lang') || 'en'
+    currentLanguage: localStorage.getItem('lingua_lang') || 'en',
+    speechWarmedUp: false
 };
 
 // Mapeo de cursos disponibles
@@ -54,41 +55,64 @@ if (langSelector) {
 function speak(text, lang) {
     if (!window.speechSynthesis) return;
 
-    // Intentar "despertar" el motor de síntesis si está pausado (fix para móviles)
-    if (window.speechSynthesis.paused) {
-        window.speechSynthesis.resume();
-    }
+    // Intentar despertar el motor
+    window.speechSynthesis.resume();
 
-    // Cancelar cualquier audio previo
+    // Cancelar cualquier audio anterior
     window.speechSynthesis.cancel();
 
     const targetLang = lang || (typeof courseData !== 'undefined' ? courseData.langCode : 'en-US');
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = targetLang;
-    utterance.rate = 0.9;
-    utterance.pitch = 1.0;
 
-    // Asegurar que las voces estén cargadas (bug en Chrome Android)
-    let voices = window.speechSynthesis.getVoices();
-    if (voices.length > 0) {
-        // Opcional: intentar buscar una voz que coincida con el idioma
-        const matchingVoice = voices.find(v => v.lang.startsWith(targetLang.split('-')[0]));
-        if (matchingVoice) {
-            utterance.voice = matchingVoice;
+    // Pequeño workaround para algunos navegadores móviles: 
+    // Si cancel() fue llamado, a veces ignoran el siguiente speak() si es inmediato.
+    // Usamos un timeout mínimo de 50ms que suele ser el dulce punto para mantener el user gesture.
+    setTimeout(() => {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = targetLang;
+        utterance.rate = 0.9;
+        utterance.pitch = 1.0;
+
+        let voices = window.speechSynthesis.getVoices();
+        if (voices.length > 0) {
+            const matchingVoice = voices.find(v => v.lang.startsWith(targetLang.split('-')[0]));
+            if (matchingVoice) {
+                utterance.voice = matchingVoice;
+            }
         }
-    }
 
-    utterance.onerror = (e) => {
-        console.error("Error en síntesis de voz:", e);
-        // Si hay error, intentamos una vez más si fue por "interrupted" no pasa nada, pero si fue network...
-    };
+        utterance.onerror = (e) => {
+            console.error("Error en síntesis de voz:", e);
+        };
 
-    window.speechSynthesis.speak(utterance);
+        window.speechSynthesis.speak(utterance);
+
+        // Fix extra para móviles: si entra en pausa después de speak, forzamos resume
+        if (window.speechSynthesis.paused) {
+            window.speechSynthesis.resume();
+        }
+    }, 50);
 }
 
-// Inicializar voces al cargar (fix para que speak no sea mudo la primera vez)
+// Función para "calentar" el motor de voz en la primera interacción
+function warmUpSpeech() {
+    if (!window.speechSynthesis || state.speechWarmedUp) return;
+    try {
+        const utterance = new SpeechSynthesisUtterance("");
+        utterance.volume = 0;
+        window.speechSynthesis.speak(utterance);
+        state.speechWarmedUp = true;
+        console.log("Sistema de voz pre-activado");
+    } catch (e) {
+        console.log("No se pudo pre-activar voz:", e);
+    }
+}
+
+// Inicializar voces al cargar y escuchar cambios
 if (window.speechSynthesis && typeof window.speechSynthesis.getVoices === 'function') {
     window.speechSynthesis.getVoices();
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+    }
 }
 
 // === RECONOCIMIENTO DE VOZ (PRO) ===
@@ -469,6 +493,7 @@ function finishLevel() {
 
 // === INICIALIZACIÓN ===
 document.getElementById('start-learning-btn').onclick = () => {
+    warmUpSpeech(); // Activar voces en la primera interacción real
     showView('map');
     renderMap();
 };
