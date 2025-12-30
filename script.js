@@ -50,14 +50,45 @@ if (langSelector) {
 }
 
 // === VOCES (WEB SPEECH API) ===
-function speak(text, lang = 'en-US') {
+// === VOCES (WEB SPEECH API) ===
+function speak(text, lang) {
     if (!window.speechSynthesis) return;
+
+    // Intentar "despertar" el motor de síntesis si está pausado (fix para móviles)
+    if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+    }
+
+    // Cancelar cualquier audio previo
     window.speechSynthesis.cancel();
+
+    const targetLang = lang || (typeof courseData !== 'undefined' ? courseData.langCode : 'en-US');
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = lang;
+    utterance.lang = targetLang;
     utterance.rate = 0.9;
     utterance.pitch = 1.0;
+
+    // Asegurar que las voces estén cargadas (bug en Chrome Android)
+    let voices = window.speechSynthesis.getVoices();
+    if (voices.length > 0) {
+        // Opcional: intentar buscar una voz que coincida con el idioma
+        const matchingVoice = voices.find(v => v.lang.startsWith(targetLang.split('-')[0]));
+        if (matchingVoice) {
+            utterance.voice = matchingVoice;
+        }
+    }
+
+    utterance.onerror = (e) => {
+        console.error("Error en síntesis de voz:", e);
+        // Si hay error, intentamos una vez más si fue por "interrupted" no pasa nada, pero si fue network...
+    };
+
     window.speechSynthesis.speak(utterance);
+}
+
+// Inicializar voces al cargar (fix para que speak no sea mudo la primera vez)
+if (window.speechSynthesis && typeof window.speechSynthesis.getVoices === 'function') {
+    window.speechSynthesis.getVoices();
 }
 
 // === RECONOCIMIENTO DE VOZ (PRO) ===
