@@ -233,6 +233,7 @@ body {
     height: 100dvh;
     /* Dynamic viewport height for mobile */
     width: 100vw;
+    overscroll-behavior: none;
     display: flex;
     justify-content: center;
     overflow: hidden;
