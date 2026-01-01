@@ -191,6 +191,14 @@
     overflow-y: auto;
 }
 
+#theory-text {
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+}
+
 .theory-footer {
     padding: 1.5rem;
     padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
@@ -268,6 +276,13 @@
 .dark-mode .voice-box {
     background: #262a3a;
     border-color: #333644;
+}
+
+.dark-mode .theory-example {
+    background: #1c1f2b;
+    border: 1px solid var(--border-dark);
+    border-left: 5px solid var(--primary-main);
+    box-shadow: none;
 }
 
 .dark-mode .stats-home span {
