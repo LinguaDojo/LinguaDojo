@@ -1,16 +1,60 @@
 // === CONFIGURACIÓN Y ESTADO ===
+const getStorageKey = (key, lang) => `lingua_${lang}_${key}`;
+
+// Función auxiliar para cargar estado por idioma
+const loadStateForLang = (lang) => {
+    // Definir claves específicas
+    const keyCompleted = getStorageKey('completed', lang);
+    const keyGems = getStorageKey('gems', lang);
+    const keyStreak = getStorageKey('streak', lang);
+
+    // Intentar cargar datos específicos
+    let completed = localStorage.getItem(keyCompleted);
+    let gems = localStorage.getItem(keyGems);
+    let streak = localStorage.getItem(keyStreak);
+
+    // MIGRACIÓN: Si no hay datos específicos y es el idioma actual/por defecto,
+    // intentar recuperar datos del formato antiguo (legacy) para no perder progreso.
+    if (completed === null) {
+        const legacyCompleted = localStorage.getItem('lingua_completed');
+        const legacyGems = localStorage.getItem('lingua_gems');
+        const legacyStreak = localStorage.getItem('lingua_streak');
+
+        if (legacyCompleted) {
+            console.log(`Migrando datos antiguos a ${lang}...`);
+            completed = legacyCompleted;
+            gems = legacyGems;
+            streak = legacyStreak;
+            
+            // Guardar inmediatamente en el nuevo formato para finalizar migración
+            localStorage.setItem(keyCompleted, completed);
+            if(gems) localStorage.setItem(keyGems, gems);
+            if(streak) localStorage.setItem(keyStreak, streak);
+        }
+    }
+
+    return {
+        completedLevels: completed ? JSON.parse(completed) : [],
+        gems: gems ? parseInt(gems) : 0,
+        streak: streak ? parseInt(streak) : 0
+    };
+};
+
+const savedLang = localStorage.getItem('lingua_lang') || 'en';
+const initialStateData = loadStateForLang(savedLang);
+
 const state = {
     view: 'intro',
-    gems: localStorage.getItem('lingua_gems') ? parseInt(localStorage.getItem('lingua_gems')) : 0,
-    streak: localStorage.getItem('lingua_streak') ? parseInt(localStorage.getItem('lingua_streak')) : 0,
+    gems: initialStateData.gems,
+    streak: initialStateData.streak,
     lives: 5,
     isPro: localStorage.getItem('lingua_pro') === 'true',
     currentUnit: 1,
     currentLevel: null,
     progress: 0,
-    completedLevels: JSON.parse(localStorage.getItem('lingua_completed')) || [],
+    completedLevels: initialStateData.completedLevels,
     lastLevelPassed: false,
-    currentLanguage: localStorage.getItem('lingua_lang') || 'en',
+    currentLanguage: savedLang,
     speechWarmedUp: false
 };
 
@@ -33,9 +77,25 @@ const langSelector = document.getElementById('language-selector');
 if (langSelector) {
     langSelector.value = state.currentLanguage;
     langSelector.onchange = (e) => {
+        // Guardar estado del idioma ANTERIOR antes de cambiar
+        const oldLang = state.currentLanguage;
+        localStorage.setItem(getStorageKey('completed', oldLang), JSON.stringify(state.completedLevels));
+        localStorage.setItem(getStorageKey('gems', oldLang), state.gems);
+        localStorage.setItem(getStorageKey('streak', oldLang), state.streak);
+
+        // Cambiar idioma
         state.currentLanguage = e.target.value;
         localStorage.setItem('lingua_lang', state.currentLanguage);
         courseData = courses[state.currentLanguage];
+
+        // Cargar estado del NUEVO idioma
+        const newData = loadStateForLang(state.currentLanguage);
+        state.completedLevels = newData.completedLevels;
+        state.gems = newData.gems;
+        state.streak = newData.streak;
+        
+        // Actualizar UI top bar
+        updateLessonUI();
 
         // Actualizar UI del Mapa Inmediatamente
         const displayTitle = document.getElementById('course-title-display');
@@ -477,9 +537,10 @@ document.getElementById('next-btn').onclick = () => {
 };
 
 function finishLevel() {
-    localStorage.setItem('lingua_completed', JSON.stringify(state.completedLevels));
-    localStorage.setItem('lingua_gems', state.gems);
-    localStorage.setItem('lingua_streak', state.streak);
+    const lang = state.currentLanguage;
+    localStorage.setItem(getStorageKey('completed', lang), JSON.stringify(state.completedLevels));
+    localStorage.setItem(getStorageKey('gems', lang), state.gems);
+    localStorage.setItem(getStorageKey('streak', lang), state.streak);
 
     if (state.lastLevelPassed) {
         alert("¡Nivel Completado! +10 Gemas 💎");
@@ -511,12 +572,13 @@ document.querySelector('.pro-badge').onclick = () => {
 };
 
 document.getElementById('save-btn').onclick = () => {
-    localStorage.setItem('lingua_completed', JSON.stringify(state.completedLevels));
-    localStorage.setItem('lingua_gems', state.gems);
-    localStorage.setItem('lingua_streak', state.streak);
+    const lang = state.currentLanguage;
+    localStorage.setItem(getStorageKey('completed', lang), JSON.stringify(state.completedLevels));
+    localStorage.setItem(getStorageKey('gems', lang), state.gems);
+    localStorage.setItem(getStorageKey('streak', lang), state.streak);
     localStorage.setItem('lingua_pro', state.isPro);
     localStorage.setItem('lingua_lang', state.currentLanguage);
-    alert("¡Progreso guardado correctamente! 💾");
+    alert(`¡Progreso de ${courseData.title} guardado correctamente! 💾`);
 };
 
 document.getElementById('verify-code-btn').onclick = () => {
